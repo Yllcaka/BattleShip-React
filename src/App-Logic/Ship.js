@@ -1,5 +1,6 @@
 const Ship = (length) => {
   let theShip = Array(length).fill("Block");
+  let shipPosition = [];
   const init = () => [theShip, theShip.length];
   const hit = (point) => {
     if (theShip[point] === "Block") {
@@ -9,12 +10,31 @@ const Ship = (length) => {
       return false;
     }
   };
+  const setShipPosition = (newPosition) => {
+    let row, column, length;
+    row = newPosition.row;
+    column = newPosition.column;
+    length = theShip.length;
+    if (newPosition.flip) {
+      for (let i = 0; i < length; i++) {
+        shipPosition.push({ row: row + i, column });
+      }
+    } else {
+      for (let i = 0; i < length; i++) {
+        shipPosition.push({ row, column: column + i });
+      }
+    }
+    // console.log(shipPosition);
+  };
+  const getShipPosition = () => shipPosition;
   const isSunk = () => theShip.every((item) => item === "Hit");
   return {
     init,
     length,
     hit,
     isSunk,
+    setShipPosition,
+    getShipPosition,
   };
 };
 

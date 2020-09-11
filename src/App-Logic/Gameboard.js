@@ -5,28 +5,32 @@ const Gameboard = (boardLength) => {
   let shipsOnBoard = [];
   const insertShip = (ship, location) => {
     //Insert ship in the board
+    if (shipsOnBoard.includes(ship)) return false;
     if (location.flip === true) return insertVertically({ ship, location });
     else {
       return insertHorizontally({ ship, location });
     }
   };
   const insertHorizontally = (content) => {
+    //Inserts the ship horizontally
+
     const location = content.location;
     const ship = content.ship;
     let row, column;
     row = location.row;
     column = location.column;
-    let [theShip, shipLength] = ship.init();
-    let boardRow = [...board[row]];
-    let desiredPlace = boardRow.slice(column, shipLength);
+    let [theShip, shipLength] = ship.init(); // The ship parameters
+    let boardRow = [...board[row]]; //Get the row that the ship will be on
+    let desiredPlace = boardRow.slice(column, shipLength); // The place where the ship will be
     boardRow.splice(column, shipLength, ...theShip);
 
     if (!desiredPlace.includes("Block") && boardRow.length === boardLength) {
-      //Check if the boat exceeds the board or it already contains it
+      //Check if the boat exceeds the board or it already contains a ship
       board[row] = boardRow;
     } else {
       return false;
     }
+    ship.setShipPosition({ row, column });
     shipsOnBoard.push(ship);
     return true;
   };
@@ -41,7 +45,12 @@ const Gameboard = (boardLength) => {
     //The magic happens here
 
     var boardColumn = board.map((item) => item[column]);
+    if (boardColumn.slice(row, shipLength).includes("Block")) {
+      //If there's already a boat on that place don't place the boat
+      return false;
+    }
     boardColumn.splice(row, shipLength, ...theShip);
+
     let futureBoard = board.map((item, index) => {
       let shipPart = boardColumn[index];
       let boardRow = [...item];
@@ -63,13 +72,39 @@ const Gameboard = (boardLength) => {
       return validLength;
     }
     board = futureBoard;
-    // console.table(futureBoard);
+    ship.setShipPosition({ row, column, flip: true });
+    // console.log(ship.getShipPosition());
+    shipsOnBoard.push(ship);
     return true;
   };
-  let getBoard = () => board;
+  const gameOver = () => !shipsOnBoard || !shipsOnBoard.length;
+  const getBoard = () => {
+    return board;
+  };
+  const attackBoard = (row, column) => {
+    if (board[row][column] === "Block") {
+      let newBoard = [...board];
+      newBoard[row][column] = "Hit";
+      board = newBoard;
+      shipsOnBoard.forEach((ship, pos) => {
+        ship.getShipPosition().forEach((block, index) => {
+          if (block.row === row && block.column === column) {
+            ship.hit(index);
+          }
+        });
+        if (ship.isSunk()) shipsOnBoard.splice(pos, 1);
+      });
+    } else if (board[row][column] === "Hit" || board[row][column] == "miss") {
+      return false;
+    } else board[row][column] = "miss";
+    // gameOver();
+    return true;
+  };
   return {
     getBoard,
     insertShip,
+    attackBoard,
+    gameOver,
   };
 };
 
