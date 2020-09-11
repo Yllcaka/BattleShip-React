@@ -1,0 +1,98 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,300;1,400&display=swap");
+
+body {
+  background-color: #d0f8ce;
+  margin: 0;
+  padding: 0;
+  font-family: Roboto;
+}
+
+.main-nav {
+  background-color: rgb(157, 219, 157);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  padding: 0 5%;
+  margin-bottom: 20px;
+}
+.main-nav .logo,
+.main-nav .logo * {
+  height: 100%;
+}
+.main-nav .logo svg {
+  width: 100px;
+}
+.app-title {
+  color: rgb(125, 187, 166);
+  user-select: none;
+}
+.main-nav li {
+  list-style-type: none;
+}
+.main-nav a {
+  transition: 150ms;
+}
+.main-nav li:hover a {
+  filter: brightness(0.9);
+}
+.github-logo {
+  height: 90%;
+}
+
+/* Game stuff */
+
+.game {
+  display: flex;
+  flex-direction: column;
+
+  /* width: 90vw; */
+}
+
+/* Board Stuff */
+.board {
+  border: 2px solid rgb(88, 198, 202);
+  display: flex;
+  flex-direction: column;
+  flex: auto;
+  margin: 0 5%;
+  /* height: 100%; */
+}
+.board-row {
+  display: flex;
+  flex-direction: row;
+  flex: auto;
+  /* height: 100%; */
+}
+.square {
+  border: 2px solid rgb(88, 198, 202);
+  flex: auto;
+  user-select: none;
+  /* padding-bottom: 100%; */
+  /* height: 100%; */
+}
+
+.square rect {
+  transition: 800ms cubic-bezier(0.25, 0.46, 0.45, 1);
+  fill: rgb(141, 197, 199);
+}
+
+.square.miss rect {
+  /* fill: rgb(156, 51, 44); */
+  x: 0;
+  y: 0;
+  rx: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.square.Hit rect {
+  transition: 1000ms cubic-bezier(0, 1.34, 0.61, -0.11);
+  fill: rgb(156, 51, 44);
+  x: 0;
+  y: 0;
+  rx: 0;
+  width: 100%;
+  height: 100%;
+}

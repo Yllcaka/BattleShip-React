@@ -1,0 +1,38 @@
+@keyframes cannon-animation {
+  from {
+    /* transform: rotateZ(-10deg); */
+  }
+  to {
+    transform: rotateZ(10deg);
+  }
+}
+@keyframes steam-stacks {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(5%);
+  }
+}
+#cannon {
+  animation: cannon-animation 2s infinite alternate linear;
+  transform-origin: 0% 100%;
+  transform-box: fill-box;
+}
+.logo:hover #Windows > path {
+  fill: #eee053;
+}
+.logo #Windows > path {
+  fill: #bab9b0;
+  transition: 500ms;
+  /* animation: light-off 2s; */
+}
+
+#out1 {
+  animation: steam-stacks 1500ms infinite alternate linear;
+  /* transform-origin: 0% 100%;
+  transform-box: fill-box; */
+}
+#out2 {
+  animation: steam-stacks 1500ms infinite alternate-reverse linear;
+}
