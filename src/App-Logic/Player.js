@@ -7,12 +7,15 @@ const Player = (name = "Player") => {
   const getName = () => name;
   const insertShip = (ship, location) => board.insertShip(ship, location);
   const attack = (row, col) => {
-    if (checkIfWon()) return true;
+    // if (checkIfWon()) return true;
     if (board.attackBoard(row, col)) {
       playersTurn = false;
+      return true;
     }
+    return false;
   };
   const checkIfWon = () => board.gameOver();
+  const play = () => board.play();
   const turnEnd = () => !playersTurn;
   return {
     getName,
@@ -23,6 +26,7 @@ const Player = (name = "Player") => {
     checkIfWon,
     turnEnd,
     setTurn,
+    play,
   };
 };
 

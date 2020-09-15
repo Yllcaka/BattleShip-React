@@ -3,6 +3,7 @@
 const Gameboard = (boardLength) => {
   let board = Array(boardLength).fill(Array(boardLength).fill("0"));
   let shipsOnBoard = [];
+  let playMode = false;
   const insertShip = (ship, location) => {
     //Insert ship in the board
     if (shipsOnBoard.includes(ship)) return false;
@@ -19,9 +20,10 @@ const Gameboard = (boardLength) => {
     let row, column;
     row = location.row;
     column = location.column;
+
     let [theShip, shipLength] = ship.init(); // The ship parameters
     let boardRow = [...board[row]]; //Get the row that the ship will be on
-    let desiredPlace = boardRow.slice(column, shipLength); // The place where the ship will be
+    let desiredPlace = boardRow.slice(column, shipLength + column); // The place where the ship will be
     boardRow.splice(column, shipLength, ...theShip);
 
     if (!desiredPlace.includes("Block") && boardRow.length === boardLength) {
@@ -44,8 +46,10 @@ const Gameboard = (boardLength) => {
     validLength = true;
     //The magic happens here
 
-    var boardColumn = board.map((item) => item[column]);
-    if (boardColumn.slice(row, shipLength).includes("Block")) {
+    let boardColumn = board.map((item) => item[column]);
+    //
+
+    if (boardColumn.slice(row, shipLength + row).includes("Block")) {
       //If there's already a boat on that place don't place the boat
       return false;
     }
@@ -73,8 +77,8 @@ const Gameboard = (boardLength) => {
     }
     board = futureBoard;
     ship.setShipPosition({ row, column, flip: true });
-    // console.log(ship.getShipPosition());
     shipsOnBoard.push(ship);
+
     return true;
   };
   const gameOver = () => !shipsOnBoard || !shipsOnBoard.length;
@@ -82,6 +86,9 @@ const Gameboard = (boardLength) => {
     return board;
   };
   const attackBoard = (row, column) => {
+    if (!playMode) {
+      return false;
+    }
     if (board[row][column] === "Block") {
       let newBoard = [...board];
       newBoard[row][column] = "Hit";
@@ -94,17 +101,20 @@ const Gameboard = (boardLength) => {
         });
         if (ship.isSunk()) shipsOnBoard.splice(pos, 1);
       });
-    } else if (board[row][column] === "Hit" || board[row][column] == "miss") {
+    } else if (board[row][column] === "Hit" || board[row][column] === "miss") {
       return false;
     } else board[row][column] = "miss";
     // gameOver();
     return true;
   };
+  const play = () => (playMode = true);
+
   return {
     getBoard,
     insertShip,
     attackBoard,
     gameOver,
+    play,
   };
 };
 

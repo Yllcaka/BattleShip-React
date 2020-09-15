@@ -30,7 +30,6 @@ const Ship = (length) => {
   const isSunk = () => theShip.every((item) => item === "Hit");
   return {
     init,
-    length,
     hit,
     isSunk,
     setShipPosition,

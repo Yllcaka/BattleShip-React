@@ -55,12 +55,21 @@ it("Should not be able to place the same ship on the board twice", () => {
   ]);
 });
 //When playing the actual game
+it("It shouldn't be able to attack if the mode isn't in play mode", () => {
+  const board = Gameboard(3);
+  const newShip = Ship(2);
+  board.insertShip(newShip, { row: 0, column: 1, flip: true });
+  expect(board.attackBoard(0, 1)).toBe(false);
+  board.play();
+  expect(board.attackBoard(0, 1)).toBe(true);
+});
 it("Should be able to hit boxes", () => {
   const board = Gameboard(3);
   const newShip = Ship(2);
   const newShip3 = Ship(3);
   board.insertShip(newShip, { row: 0, column: 1, flip: true });
   board.insertShip(newShip3, { row: 2, column: 0 });
+  board.play();
   board.attackBoard(0, 1);
   expect(board.attackBoard(1, 1)).toBe(true);
   expect(board.attackBoard(1, 1)).toBe(false);
@@ -76,9 +85,25 @@ it("If no ships left it gameOver should return true", () => {
   const board = Gameboard(3);
   const newShip = Ship(2);
   board.insertShip(newShip, { row: 0, column: 1, flip: true });
-
+  board.play();
   board.attackBoard(0, 1);
   board.attackBoard(1, 1);
 
   expect(board.gameOver()).toBe(true);
+});
+it("Should not be able to place ship at the end of other ship", () => {
+  const board = Gameboard(3);
+  const newShip = Ship(2);
+  const newShip2 = Ship(2);
+  const newShip3 = Ship(2);
+  board.insertShip(newShip, { row: 0, column: 1 });
+  board.insertShip(newShip2, { row: 1, column: 0, flip: true });
+  expect(board.insertShip(newShip3, { row: 3, column: 0, flip: true })).toBe(
+    false
+  );
+  board.play();
+  board.attackBoard(0, 1);
+  board.attackBoard(1, 1);
+
+  // expect(board.gameOver()).toBe(true);
 });

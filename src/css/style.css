@@ -45,7 +45,7 @@ body {
 
 .game {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 
   /* width: 90vw; */
 }
@@ -53,24 +53,25 @@ body {
 /* Board Stuff */
 .board {
   border: 2px solid rgb(88, 198, 202);
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  flex: auto;
+  flex: auto; */
   margin: 0 5%;
   /* height: 100%; */
 }
 .board-row {
   display: flex;
   flex-direction: row;
-  flex: auto;
+  /* flex: auto; */
   /* height: 100%; */
 }
 .square {
   border: 2px solid rgb(88, 198, 202);
-  flex: auto;
+  /* flex: auto; */
   user-select: none;
   /* padding-bottom: 100%; */
-  /* height: 100%; */
+  height: 50px;
+  width: 50px;
 }
 
 .square rect {
@@ -95,4 +96,38 @@ body {
   rx: 0;
   width: 100%;
   height: 100%;
+}
+
+.ship-container {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.ship {
+  border: 1px solid brown;
+
+  display: inline-flex;
+  flex-direction: row;
+  height: fit-content;
+  width: fit-content;
+}
+.ship:hover .part {
+  background-color: rgb(214, 93, 93);
+}
+.ship-container .ship {
+  margin: 10px 0;
+}
+.ship-container.flip {
+  flex-direction: row;
+}
+.flip .ship {
+  flex-direction: column;
+  margin: 0 10px;
+}
+.part {
+  border: 2px solid rgb(201, 69, 69);
+  transition: 0.2s ease-in-out;
+  user-select: none;
+  height: 50px;
+  width: 50px;
 }
