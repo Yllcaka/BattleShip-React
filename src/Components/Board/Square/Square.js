@@ -2,11 +2,13 @@ import React, { useState, useContext } from "react";
 import { ReactComponent as SquareForm } from "./Square.svg";
 import { useDrop } from "react-dnd";
 import { ItemTypes } from "../../utils/items";
+import { playerTurn } from "../../Game";
 import { ShipContext } from "../../Ship/ShipParts";
 const Square = (props) => {
   const [type, setType] = useState(props.type);
 
   const [hit, setHit] = useState(false);
+  const changeTurn = useContext(playerTurn);
   // const { markAsInserted } = useContext(ShipContext);
   const [{ isOver }, drop] = useDrop({
     accept: ItemTypes.SHIP,
@@ -26,9 +28,12 @@ const Square = (props) => {
     const { row, column } = props.location;
     //
     //
+    // if (changeTurn.turn) {
+    console.log("IT IS HAPPENING");
+    changeTurn.changeTurn();
+    // }
 
     if (props.player.attack(row, column)) {
-      console.log("!@#");
       if (!hit) setHit(true);
       setType(props.player.getBoard()[row][column]);
     }

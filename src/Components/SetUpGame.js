@@ -23,13 +23,13 @@ const SetUpGame = (props) => {
       </div>
       <div>
         <div className={"ship-container " + (flip ? "flip" : "")}>
-          <ShipContext.Provider>
-            <ShipParts flip={flip} ship={5} key={1} />
-            <ShipParts flip={flip} ship={4} key={2} />
-            <ShipParts flip={flip} ship={3} key={3} />
-            <ShipParts flip={flip} ship={3} key={4} />
-            <ShipParts flip={flip} ship={2} key={5} />
-          </ShipContext.Provider>
+          {/* <ShipContext.Provider> */}
+          <ShipParts flip={flip} ship={5} key={1} />
+          <ShipParts flip={flip} ship={4} key={2} />
+          <ShipParts flip={flip} ship={3} key={3} />
+          <ShipParts flip={flip} ship={3} key={4} />
+          <ShipParts flip={flip} ship={2} key={5} />
+          {/* </ShipContext.Provider> */}
         </div>
         <button onClick={handleClick}>Flip</button>
       </div>

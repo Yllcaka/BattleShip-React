@@ -8,7 +8,7 @@ const Player = (name = "Player") => {
   const insertShip = (ship, location) => board.insertShip(ship, location);
   const attack = (row, col) => {
     // if (checkIfWon()) return true;
-    if (board.attackBoard(row, col)) {
+    if (playersTurn && board.attackBoard(row, col)) {
       playersTurn = false;
       return true;
     }

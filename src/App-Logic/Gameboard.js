@@ -1,7 +1,13 @@
 // import { Ship } from "./Ship";
 
 const Gameboard = (boardLength) => {
-  let board = Array(boardLength).fill(Array(boardLength).fill("0"));
+  let board = Array(10);
+  for (let i = 0; i < boardLength; i++) {
+    board[i] = [];
+    for (let j = 0; j < boardLength; j++) {
+      board[i][j] = "0";
+    }
+  }
   let shipsOnBoard = [];
   let playMode = false;
   const insertShip = (ship, location) => {
@@ -55,9 +61,9 @@ const Gameboard = (boardLength) => {
     }
     boardColumn.splice(row, shipLength, ...theShip);
 
-    let futureBoard = board.map((item, index) => {
+    let futureBoard = board.map((boardRow, index) => {
       let shipPart = boardColumn[index];
-      let boardRow = [...item];
+      // let boardRow = [...item];
       if (shipPart) {
         boardRow[column] = shipPart;
       }
@@ -90,9 +96,7 @@ const Gameboard = (boardLength) => {
       return false;
     }
     if (board[row][column] === "Block") {
-      let newBoard = [...board];
-      newBoard[row][column] = "Hit";
-      board = newBoard;
+      board[row][column] = "Hit";
       shipsOnBoard.forEach((ship, pos) => {
         ship.getShipPosition().forEach((block, index) => {
           if (block.row === row && block.column === column) {
@@ -103,8 +107,11 @@ const Gameboard = (boardLength) => {
       });
     } else if (board[row][column] === "Hit" || board[row][column] === "miss") {
       return false;
-    } else board[row][column] = "miss";
+    } else {
+      board[row].splice(column, 1, "miss");
+    }
     // gameOver();
+
     return true;
   };
   const play = () => (playMode = true);
