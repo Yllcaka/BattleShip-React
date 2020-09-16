@@ -16,7 +16,7 @@ const Player = (name = "Player") => {
   };
   const checkIfWon = () => board.gameOver();
   const play = () => board.play();
-  const turnEnd = () => !playersTurn;
+  const turnEnd = () => (playersTurn = false);
   return {
     getName,
     setBoard,

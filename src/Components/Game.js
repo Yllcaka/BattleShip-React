@@ -1,43 +1,26 @@
 import React, { useState, createContext, useContext, useEffect } from "react";
 import { Board } from "./Board/Board";
-import { Player } from "../App-Logic/Player";
-import { Gameboard } from "../App-Logic/Gameboard";
-// import { Ship } from "../App-Logic/Ship";
 import { SetUpGame } from "./SetUpGame";
-import { Ship } from "../App-Logic/Ship";
+import { mainGame } from "../App-Logic/MainGame";
 
-const player1 = Player("John");
-const player2 = Player("Jane");
+mainGame.setComputerCordinates();
+const { player1, player2 } = mainGame.getPlayers();
 const playerTurnArgs = {
-  turn: true,
+  turn: player1,
 };
 
 playerTurnArgs.changeTurn = () => {
-  // console.log("CHANGE");
-  if (playerTurn.turn) {
-    console.log("IF");
-    player1.turnEnd();
-    player2.setTurn();
-  } else {
-    console.log("ELSE");
-    player2.turnEnd();
-    player1.setTurn();
-  }
-  playerTurnArgs.turn = !playerTurnArgs.turn;
-  console.log(playerTurnArgs.turn);
+  mainGame.changeTurn(playerTurnArgs);
+  // console.log(playerTurnArgs.turn);
 };
 const playerTurn = createContext(playerTurnArgs);
-player1.setBoard(Gameboard(10));
-player2.setBoard(Gameboard(10));
-player2.insertShip(Ship(5), { row: 0, column: 0 });
+
+mainGame.play();
 const Game = () => {
   const [begin, setBegin] = useState(false);
 
   const handleButtonClick = () => {
     setBegin(true);
-    player1.play();
-    player2.play();
-    player1.setTurn();
   };
 
   if (begin) {
@@ -55,6 +38,7 @@ const Game = () => {
         >
           CHECK!
         </button>
+        <div>{}</div>
       </div>
     );
   }

@@ -3,7 +3,7 @@ import { ReactComponent as SquareForm } from "./Square.svg";
 import { useDrop } from "react-dnd";
 import { ItemTypes } from "../../utils/items";
 import { playerTurn } from "../../Game";
-import { ShipContext } from "../../Ship/ShipParts";
+// import { ShipContext } from "../../Ship/ShipParts";
 const Square = (props) => {
   const [type, setType] = useState(props.type);
 
@@ -30,12 +30,16 @@ const Square = (props) => {
     //
     // if (changeTurn.turn) {
     console.log("IT IS HAPPENING");
-    changeTurn.changeTurn();
+
     // }
 
     if (props.player.attack(row, column)) {
-      if (!hit) setHit(true);
-      setType(props.player.getBoard()[row][column]);
+      // console.log("YEP");
+      if (!hit) {
+        setHit(true);
+        setType(props.player.getBoard()[row][column]);
+        changeTurn.changeTurn();
+      }
     }
   };
 
