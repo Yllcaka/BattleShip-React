@@ -7,6 +7,7 @@ const mainGame = (() => {
   const player2Ships = [Ship(5), Ship(4), Ship(3), Ship(3), Ship(2)];
   player1.setBoard(Gameboard(10));
   player2.setBoard(Gameboard(10));
+  let turn = player1;
   let winner = null;
   const play = () => {
     player1.play();
@@ -18,15 +19,17 @@ const mainGame = (() => {
     else if (player2.checkIfWon()) winner = player2;
     return winner;
   };
-  const changeTurn = (turn) => {
-    if (turn.turn === player1) {
+  const changeTurn = () => {
+    if (turn === player1) {
       player1.turnEnd();
       player2.setTurn();
-      turn.turn = player2;
+      turn = player2;
+      console.log("IF");
     } else {
       player2.turnEnd();
       player1.setTurn();
-      turn.turn = player1;
+      turn = player1;
+      console.log("ELSE");
     }
   };
   const getPlayers = () => players;

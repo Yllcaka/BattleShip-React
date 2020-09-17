@@ -1,4 +1,4 @@
-import React, { useState, createContext } from "react";
+import React, { createContext } from "react";
 import { Ship } from "../../App-Logic/Ship";
 import { useDrag } from "react-dnd";
 import { Part } from "./Part";
@@ -10,9 +10,8 @@ const ShipContext = createContext({
 
 const ShipParts = (props) => {
   const ship = Ship(props.ship);
-  const [shipParts, shipLength] = ship.init();
+  const [shipParts] = ship.init();
 
-  // const [inserted, setInserted] = useState(false);
   const [{ isDragging }, drag] = useDrag({
     item: {
       type: ItemTypes.SHIP,

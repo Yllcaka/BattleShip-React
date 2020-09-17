@@ -1,21 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { BoardRow } from "./BoardRow";
+import { useDrop } from "react-dnd";
+import { ItemTypes } from "../utils/items";
 const Board = (props) => {
   let board = props.player.getBoard();
-  //   props.player.attack(1, 0);
-  //   props.player.attack(1, 1);
-  //
-
-  //   a[0][2] = "Block";
-
   let boardRows = board.map((row, index) => (
-    <BoardRow
-      // flip={props.flip}
-      player={props.player}
-      squares={row}
-      row={index}
-      key={index}
-    />
+    <BoardRow player={props.player} squares={row} row={index} key={index} />
   ));
   return <div className="board">{boardRows}</div>;
 };

@@ -9,7 +9,7 @@ const Player = (name = "Player") => {
   const attack = (row, col) => {
     // if (checkIfWon()) return true;
     if (playersTurn && board.attackBoard(row, col)) {
-      playersTurn = false;
+      // playersTurn = false;
       return true;
     }
     return false;

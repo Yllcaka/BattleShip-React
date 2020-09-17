@@ -1,26 +1,32 @@
 import React, { useState, createContext, useContext, useEffect } from "react";
+import { mainGame } from "../App-Logic/MainGame";
 import { Board } from "./Board/Board";
 import { SetUpGame } from "./SetUpGame";
-import { mainGame } from "../App-Logic/MainGame";
+import { WinnerScreen } from "./WinnerScreen";
 
 mainGame.setComputerCordinates();
 const { player1, player2 } = mainGame.getPlayers();
-const playerTurnArgs = {
-  turn: player1,
-};
+// const playerTurnArgs = ;
 
-playerTurnArgs.changeTurn = () => {
-  mainGame.changeTurn(playerTurnArgs);
-  // console.log(playerTurnArgs.turn);
-};
-const playerTurn = createContext(playerTurnArgs);
+// playerTurnArgs.setTurn = () => {
+//   mainGame.changeTurn(playerTurnArgs);
+//   // console.log(playerTurnArgs.turn);
+//   // console.log(playerTurnArgs.turn);
+// };
+// playerTurnArgs.checkWinner = () => {
+//   mainGame.checkWinner();
+// };
+// const playerTurn = createContext({
+//   turn: ,
+//   setTurn: () => {},
+// });
 
-mainGame.play();
 const Game = () => {
   const [begin, setBegin] = useState(false);
 
   const handleButtonClick = () => {
     setBegin(true);
+    mainGame.play();
   };
 
   if (begin) {
@@ -30,15 +36,15 @@ const Game = () => {
           <Board player={player1} />
           <Board player={player2} />
         </div>
-        <button
+        {/* <button
           onClick={() => {
             console.table(player1.getBoard());
             console.table(player2.getBoard());
           }}
         >
           CHECK!
-        </button>
-        <div>{}</div>
+        </button> */}
+        <WinnerScreen />
       </div>
     );
   }
@@ -50,4 +56,4 @@ const Game = () => {
   );
 };
 
-export { Game, playerTurn };
+export { Game };

@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Board } from "./Board/Board";
-// import { Player } from "../App-Logic/Player";
-// import { Gameboard } from "../App-Logic/Gameboard";
-// import { Ship } from "../App-Logic/Ship";
+
 import { ShipParts, ShipContext } from "../Components/Ship/ShipParts";
 const SetUpGame = (props) => {
   const player = props.player;
